@@ -1,0 +1,102 @@
+---
+import Dropdown from "../components/Dropdown.astro";
+import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
+
+const navbar = [
+    {
+        title: "Get Help",
+        path: "/help",
+    },
+    {
+        title: "FAQ",
+        path: "/faq",
+    },
+    {
+        title: "Link",
+        path: "/steps/4",
+    },
+    {
+        title: "Education",
+        children: [
+            {
+                title: "Education One",
+                path: "/education/1",
+            },
+            {
+                title: "Education Two",
+                path: "/education/2",
+            },
+            {
+                title: "Education Three",
+                path: "/education/3",
+            },
+        ],
+    },
+    {
+        title: "Plans",
+        children: [
+            {
+                title: "Bronze Plan",
+                path: "/plans/1",
+            },
+            {
+                title: "Silver Plan",
+                path: "/plans/2",
+            },
+            {
+                title: "Gold Plan",
+                path: "/plans/3",
+            },
+        ],
+    },
+    {
+        title: "Events",
+        path: "/events",
+    },
+    {
+        title: "Livestream",
+        path: "/live",
+    },
+];
+---
+
+<header class="flex flex-col lg:flex-row justify-between items-center bg-black h-16">
+    <Astronav>
+        <div class="flex w-full lg:w-auto items-center justify-between p-3 pb-0 lg:pb-3">
+            <a href="/">
+                <!-- <img src={logo.src} class="mr-3 h-8 hover:brightness-75" /> -->
+            </a>
+            <div class="block lg:hidden">
+                <MenuIcon class="w-8 h-8 text-neutral-200" />
+            </div>
+        </div>
+        <MenuItems class="hidden lg:flex w-full lg:w-auto mt-2 lg:mt-0 z-50 bg-black p-3">
+            <ul class="flex flex-col lg:flex-row lg:gap-3">
+                {
+                    navbar.map((item, index) => (
+                        <>
+                            {item.children && (
+                                <Dropdown
+                                    title={item.title}
+                                    children={item.children}
+                                    lastItem={index === navbar.length - 1}
+                                />
+                            )}
+
+                            {!item.children && (
+                                <li>
+                                    <a href={item.path} class="flex lg:px-3 py-2 text-neutral-200 hover:text-amber-500">
+                                        {item.title}
+                                    </a>
+                                </li>
+                            )}
+                        </>
+                    ))
+                }
+            </ul>
+        </MenuItems>
+    </Astronav>
+    <div class="mr-3 hidden lg:flex">
+        <a href="/steps/1">7 Steps</a>
+    </div>
+</header>
